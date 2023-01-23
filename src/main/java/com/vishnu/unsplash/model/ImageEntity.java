@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.util.List;
+
 @Setter
 @Getter
 @AllArgsConstructor
@@ -22,5 +24,9 @@ public class ImageEntity extends BaseEntity{
     @ManyToOne(fetch = FetchType.EAGER,optional = false)
     @JoinColumn(name = "user_id",nullable = false)
     UserEntity user;
+
+    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinTable(name = "image_topic",joinColumns = @JoinColumn(name="image_id"), inverseJoinColumns = @JoinColumn(name = "topic_id") )
+    List<TopicEntity> topics;
 
 }
