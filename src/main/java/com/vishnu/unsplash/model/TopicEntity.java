@@ -22,5 +22,6 @@ public class TopicEntity extends BaseEntity{
     @ManyToMany(mappedBy = "topics",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     List<ImageEntity> images;
 
-
+    @ElementCollection
+    List <Meta> meta;
 }

@@ -29,4 +29,7 @@ public class ImageEntity extends BaseEntity{
     @JoinTable(name = "image_topic",joinColumns = @JoinColumn(name="image_id"), inverseJoinColumns = @JoinColumn(name = "topic_id") )
     List<TopicEntity> topics;
 
+    @ElementCollection
+    List<Meta> meta;
+
 }
