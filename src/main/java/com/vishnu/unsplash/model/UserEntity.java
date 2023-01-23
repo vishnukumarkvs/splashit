@@ -1,10 +1,10 @@
 package com.vishnu.unsplash.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+
+import java.util.List;
 
 @Setter
 @Getter
@@ -20,4 +20,7 @@ public class UserEntity extends BaseEntity{
     String password;
     @Column(nullable = false,unique = true)
     String email;
+
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,orphanRemoval = true, fetch = FetchType.LAZY)
+    List<ImageEntity> images;
 }

@@ -1,8 +1,6 @@
 package com.vishnu.unsplash.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -20,5 +18,9 @@ public class ImageEntity extends BaseEntity{
     String url;
     @Column(columnDefinition = "text")
     String description;
+
+    @ManyToOne(fetch = FetchType.EAGER,optional = false)
+    @JoinColumn(name = "user_id",nullable = false)
+    UserEntity user;
 
 }
