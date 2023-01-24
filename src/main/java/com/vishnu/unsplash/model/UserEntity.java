@@ -8,9 +8,9 @@ import java.util.List;
 
 @Setter
 @Getter
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @NoArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @Table(name = "users")
 public class UserEntity extends BaseEntity{
