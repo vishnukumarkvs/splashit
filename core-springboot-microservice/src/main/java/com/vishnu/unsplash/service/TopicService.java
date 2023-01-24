@@ -24,21 +24,22 @@ public class TopicService {
         this.userService = userService;
     }
 
-    public void saveTopic(TopicEntity topicEntity){
-        topicRepository.save(topicEntity);
-    }
-
     public List<TopicEntity> getAllTopics(){
         return (List<TopicEntity>) topicRepository.findAll();
+    }
+    public TopicEntity getTopicById(long id){
+        return (TopicEntity) topicRepository.findById(id).orElse(null);
+    }
+
+    public void saveTopic(TopicEntity topicEntity){
+        topicRepository.save(topicEntity);
     }
 
     public List<ImageEntity> getAllImagesUnderTopic(long Id){
         TopicEntity topic = getTopicById(Id);
         return topic.getImages(); // getter setter method of topic entity
     }
-    public TopicEntity getTopicById(long id){
-        return (TopicEntity) topicRepository.findById(id).orElse(null);
-    }
+
 
     public void addImageToTopic(long topicId,long userId,ImageEntity imageEntity){
         UserEntity userEntity = userService.getUserById(userId);

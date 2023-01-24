@@ -24,15 +24,19 @@ public class TopicController {
         return new ResponseEntity<>(topicService.getAllTopics(), HttpStatus.OK);
     }
 
-    @PostMapping("/saveImage/{id}/{userId}")
-    public ResponseEntity<?> saveImageToTopic(@PathVariable long id, @PathVariable long userId, @RequestBody ImageEntity imageEntity){
-
-        topicService.addImageToTopic(id,userId, imageEntity);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getTopicById(@PathVariable long id){
+        return new ResponseEntity<>(topicService.getTopicById((id)),HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<?> createTopic(@RequestBody TopicEntity topicEntity){
+    public ResponseEntity<?> create(@RequestBody TopicEntity topicEntity){
+        topicService.saveTopic(topicEntity);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @PutMapping
+    public ResponseEntity<?> update(@RequestBody TopicEntity topicEntity){
         topicService.saveTopic(topicEntity);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
