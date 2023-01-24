@@ -7,10 +7,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository extends CrudRepository<UserEntity,Long> {
     UserEntity findByName(String name);
-    UserEntity findByEmail(String email);
-    UserEntity findByEmailAndPassword(String email, String password);
-}
 
+    UserEntity findByEmail(String email);
+
+    UserEntity findByEmailAndPassword(String email, String password);
+
+}
 
 //    CrudRepository<Entity,PrimaryKey>
 
