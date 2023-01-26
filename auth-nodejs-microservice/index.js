@@ -9,8 +9,6 @@ const app = express();
 const coreServiceUrl = "http://localhost:8080";
 const jwtSecret = "vishnu";
 
-app.use(express.json());
-
 app.use(async (req, res, next) => {
   console.log("working");
   const token = req.header("Authorization");
@@ -35,10 +33,12 @@ app.use(
     changeOrigin: true,
     onProxyReq: (proxyReq, req) => {
       console.log("proxying");
-      console.log(req.headers);
+      console.log(req.body);
     },
   })
 );
+
+app.use(express.json());
 
 app.post("/register", async (req, res) => {
   try {

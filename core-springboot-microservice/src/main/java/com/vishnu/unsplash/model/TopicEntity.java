@@ -1,5 +1,6 @@
 package com.vishnu.unsplash.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -20,6 +21,7 @@ public class TopicEntity extends BaseEntity{
     String description;
 
     @ManyToMany(mappedBy = "topics",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     List<ImageEntity> images;
 
     @ElementCollection

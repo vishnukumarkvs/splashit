@@ -23,14 +23,19 @@ public class ImageEntity extends BaseEntity{
     @Column(columnDefinition = "text")
     String description;
 
+    @Column
+    Long likes;
+
+    @OneToMany(mappedBy = "image",fetch = FetchType.LAZY,orphanRemoval = true,cascade = CascadeType.ALL)
+    @JsonIgnore
+    List<CommentEntity> comments;
+
     @ManyToOne(fetch = FetchType.EAGER,optional = false)
     @JoinColumn(name = "user_id",nullable = false)
-    @JsonIgnore
     UserEntity user;
 
     @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinTable(name = "image_topic",joinColumns = @JoinColumn(name="image_id"), inverseJoinColumns = @JoinColumn(name = "topic_id") )
-    @JsonIgnore
     List<TopicEntity> topics;
 
     @ElementCollection

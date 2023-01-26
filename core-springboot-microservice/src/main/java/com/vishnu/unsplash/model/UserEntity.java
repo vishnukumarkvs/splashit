@@ -1,5 +1,6 @@
 package com.vishnu.unsplash.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -22,5 +23,9 @@ public class UserEntity extends BaseEntity{
     String email;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonIgnore
     List<ImageEntity> images;
+
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    List<CommentEntity> comments;
 }
