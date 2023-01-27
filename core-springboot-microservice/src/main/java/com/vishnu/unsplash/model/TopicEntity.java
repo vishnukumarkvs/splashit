@@ -7,6 +7,7 @@ import lombok.experimental.FieldDefaults;
 
 import java.util.List;
 
+@Builder
 @Setter
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)

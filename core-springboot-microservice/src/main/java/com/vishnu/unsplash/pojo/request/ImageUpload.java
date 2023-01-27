@@ -3,6 +3,8 @@ package com.vishnu.unsplash.pojo.request;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.util.List;
+
 @Setter
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)

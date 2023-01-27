@@ -4,13 +4,18 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vishnu.unsplash.model.CommentEntity;
 import com.vishnu.unsplash.model.ImageEntity;
+import com.vishnu.unsplash.model.TopicEntity;
 import com.vishnu.unsplash.model.UserEntity;
 import com.vishnu.unsplash.pojo.request.AddCommentPojo;
 import com.vishnu.unsplash.pojo.request.AuthPojo;
 import com.vishnu.unsplash.pojo.request.ImageUpload;
+import com.vishnu.unsplash.pojo.request.TopicPojo;
 import com.vishnu.unsplash.pojo.response.UserImages;
+import com.vishnu.unsplash.repository.TopicRepository;
 import com.vishnu.unsplash.repository.UserRepository;
 import com.vishnu.unsplash.service.CommentService;
+import com.vishnu.unsplash.service.ImageService;
+import com.vishnu.unsplash.service.TopicService;
 import com.vishnu.unsplash.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AccessLevel;
@@ -33,9 +38,14 @@ import java.util.List;
 public class UserController {
     UserService userService;
     CommentService commentService;
+
+    ImageService imageService;
+
+    TopicService topicService;
     private final UserRepository userRepository;
 
     private ObjectMapper objectMapper;
+    private final TopicRepository topicRepository;
 
     @GetMapping
     public ResponseEntity<?> getAllUsers(HttpServletRequest request) throws JsonProcessingException {
@@ -81,4 +91,31 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
+
+    // 1- only one topic for image - *
+    @PostMapping("/addTopic")
+    public ResponseEntity<?> addTopicToImage(@RequestBody Long topicId, @RequestBody Long imageId){
+        ImageEntity imageEntity = imageService.getImageById(imageId);
+        TopicEntity topicEntity = topicService.getTopicById(topicId);
+
+        imageEntity.getTopics().add(topicEntity);
+        topicEntity.getImages().add(imageEntity);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    // 3- create topic and add multiple images
+    @PostMapping("/ctai")
+    public  ResponseEntity<?> addTopicAndImages(@RequestBody TopicPojo topicPojo, HttpServletRequest httpServletRequest) throws JsonProcessingException {
+        AuthPojo user = objectMapper.readValue(httpServletRequest.getHeader("user"),AuthPojo.class);
+        TopicEntity topicEntity = TopicEntity.builder()
+                .title(topicPojo.getTitle())
+                .description(topicPojo.getDescription())
+                .build();
+        for(int i=0;i<topicPojo.getImageIds().size();i++){
+            ImageEntity imageEntity=imageService.getImageById(topicPojo.getImageIds().get(i));
+            topicService.addImageToTopic(topicEntity.getId(),user.getUserId(),imageEntity);
+        }
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
 }

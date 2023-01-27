@@ -10,6 +10,7 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -37,18 +38,29 @@ public class TopicService {
 
     public List<ImageEntity> getAllImagesUnderTopic(long Id){
         TopicEntity topic = getTopicById(Id);
-        return topic.getImages(); // getter setter method of topic entity
+        if(topic!=null){
+            return topic.getImages(); // getter setter method of topic entity
+        }
+        return null;
     }
 
 
     public void addImageToTopic(long topicId,long userId,ImageEntity imageEntity){
-        UserEntity userEntity = userService.getUserById(userId);
-        imageEntity.setUser(userEntity);
-        TopicEntity topic = this.getTopicById(topicId);
-        topic.getImages().add(imageEntity);
-        List<TopicEntity>topics = new ArrayList<>();
-        topics.add(topic);
-        imageEntity.setTopics(topics);
-        topicRepository.save(topic);
+        UserEntity user = userService.getUserById(userId);
+        imageEntity.setUser(user);
+
+
+        TopicEntity topicEntity = this.getTopicById(topicId);
+
+        if(topicEntity.getImages()==null){
+            topicEntity.setImages(Collections.emptyList());
+        }
+        if(imageEntity.getTopics()==null){
+            imageEntity.setTopics(Collections.emptyList());
+        }
+        topicEntity.getImages().add(imageEntity);
+        imageEntity.getTopics().add(topicEntity);
+
+        topicRepository.save(topicEntity);
     }
 }

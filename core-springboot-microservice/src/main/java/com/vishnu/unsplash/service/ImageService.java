@@ -1,12 +1,16 @@
 package com.vishnu.unsplash.service;
 
+import com.vishnu.unsplash.model.CommentEntity;
 import com.vishnu.unsplash.model.ImageEntity;
+import com.vishnu.unsplash.model.TopicEntity;
 import com.vishnu.unsplash.model.UserEntity;
 import com.vishnu.unsplash.repository.ImageRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @FieldDefaults(makeFinal = true,level = AccessLevel.PRIVATE)
@@ -34,10 +38,16 @@ public class ImageService {
         if (imageEntity != null) {
             long likes = imageEntity.getLikes();
             if (likes > 0) {
-                imageEntity.setLikes(imageEntity.getLikes()-1);
+                imageEntity.setLikes(imageEntity.getLikes() - 1);
             }
-            
         }
-        
+    }
+
+    public List<CommentEntity> getAllComments(long id){
+        ImageEntity imageEntity = this.getImageById(id);
+        if(imageEntity != null){
+            return imageEntity.getComments();
+        }
+        return null;
     }
 }
