@@ -1,4 +1,4 @@
-package com.unsplash.upload.Pojo.Response;
+package com.unsplash.upload.pojo.response;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;

@@ -7,6 +7,10 @@ import java.util.List;
 public class ImageValidator {
 
     public static boolean areImages(List<MultipartFile> files){
+        System.out.println(files);
+        if(files==null){
+            return false;
+        }
         for(MultipartFile file: files){
             String fileType = file.getContentType();
             if(!fileType.startsWith("image/")){
