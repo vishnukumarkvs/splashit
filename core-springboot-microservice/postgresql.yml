@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: unsplash-postgres
+  labels:
+    db: unsplash-postgres
+spec:
+  selector:
+    matchLabels:
+      db: unsplash-postgres
+  template:
+    metadata:
+      labels:
+        db: unsplash-postgres
+    spec:
+      containers:
+        - name: unsplash-postgres
+          image: postgres:latest
+          env:
+            - name: POSTGRES_USER
+              value: vishnu
+            - name: POSTGRES_PASSWORD
+              value: vishnu123
+            - name: POSTGRES_DB
+              value: vishnu
+          resources:
+            requests:
+              cpu: 100m
+              memory: 60Mi
+            limits:
+              cpu: 200m
+              memory: 120Mi

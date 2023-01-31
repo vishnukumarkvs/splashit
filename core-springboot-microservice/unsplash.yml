@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: unsplash-app
+  labels:
+    app: unsplash-app
+spec:
+  selector:
+    matchLabels:
+      app: unsplash-app
+  template:
+    metadata:
+      labels:
+        app: unsplash-app
+    spec:
+      containers:
+      - name: unsplash-app
+        image: docker.io/vishnukumarkvs/unsplash:v1
+        ports:
+          - containerPort: 8080
+        env:
+          - name: DB_USER
+            value: vishnu
+          - name: DB_PWD
+            value: vishnu123
+          - name: DB_URL
+            value: jdbc:postgresql://unsplash-postgres/vishnu
