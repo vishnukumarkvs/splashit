@@ -1,15 +1,18 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
-const { expressjwt: expressJwt } = require("express-jwt");
 const { createProxyMiddleware } = require("http-proxy-middleware");
 const { default: axios } = require("axios");
 
 const app = express();
 
-const coreServiceUrl = "http://localhost:8080";
+const coreServiceUrl = "http://localhost:9001";
 const jwtSecret = "vishnu";
 
 app.use(async (req, res, next) => {
+  if (req.path === "/login" || req.path === "/register") {
+    next();
+    return;
+  }
   console.log("working");
   const token = req.header("Authorization");
   if (!token) {

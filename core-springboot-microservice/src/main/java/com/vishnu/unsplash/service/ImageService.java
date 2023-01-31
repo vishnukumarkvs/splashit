@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -17,12 +18,19 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ImageService {
     ImageRepository imageRepository;
+    UserService userService;
 
     public ImageEntity getImageById(long id){
         return imageRepository.findById(id).orElse(null);
     }
 
-    public void saveImage(ImageEntity image) {
+    public void saveImage(ImageEntity image, Long userId) {
+        UserEntity userEntity = userService.getUserById(userId);
+        if(userEntity.getImages() == null){
+            userEntity.setImages(Collections.emptyList());
+        }
+        userEntity.getImages().add(image);
+        image.setUser(userEntity);
         imageRepository.save(image);
     }
     
