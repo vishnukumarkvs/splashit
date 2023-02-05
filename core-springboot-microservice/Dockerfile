@@ -9,4 +9,7 @@ ENTRYPOINT java -Xms2048m -Xmx3072m -XX:+UseG1GC \
           	-DDB_URL=$DB_URL \
           	-DDB_USER=$DB_USER \
           	-DDB_PWD=$DB_PWD \
+          	-DAWS_ACCESS_KEY=${AWS_ACCESS_KEY} \
+          	-DAWS_SECRET_KEY=${AWS_SECRET_KEY} \
+          	-DQUEUE_URI=${QUEUE_URI} \
           	-jar app.jar
