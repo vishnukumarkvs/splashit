@@ -1,0 +1,31 @@
+spring:
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgresPlusDialect
+        jdbc:
+          lob:
+            non_contextual_creation: 'true'
+        format_sql: 'true'
+    hibernate:
+      ddl-auto: update
+  main:
+    allow-bean-definition-overriding: 'true'
+  datasource:
+    password: ${DB_PWD}
+    driver-class-name: org.postgresql.Driver
+    username: ${DB_USER}
+    url: ${DB_URL}
+
+cloud:
+  aws:
+    region:
+      static: us-west-2
+      auto: false
+    stack:
+      auto: false
+    credentials:
+      access-key: ${AWS_ACCESS_KEY}
+      secret-key: ${AWS_SECRET_KEY}
+    end-point:
+      uri: ${QUEUE_URI}
