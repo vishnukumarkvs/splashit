@@ -3,6 +3,9 @@
 
 A photo sharing platform powered by microservices and deployed in AWS with Docker, Terraform, and Kubernetes.
 
+![unsplash](https://user-images.githubusercontent.com/116954249/216814041-4415610f-aafa-48c3-97d1-07e962ab830a.png)
+
+
 ## Microservices
 
 -   **Auth Microservice**: A Node.js, Express powered microservice that authenticates user requests and proxies them to other microservices.
