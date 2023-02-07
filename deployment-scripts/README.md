@@ -1,4 +1,6 @@
-Create a configuration file: You need to create a configuration file that contains the credentials to access your EKS cluster. You can use the following command to create a configuration file: aws eks update-kubeconfig --name <cluster-name>.
+Create a configuration file: You need to create a configuration file that contains the credentials to access your EKS cluster. You can use the following command to create a configuration file: 
+
+aws eks update-kubeconfig --name <cluster-name>.
 
 aws eks list-clusters
 
