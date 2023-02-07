@@ -18,11 +18,11 @@ spec:
           image: postgres:latest
           env:
             - name: POSTGRES_USER
-              value: vishnu
+              value: postgres
             - name: POSTGRES_PASSWORD
-              value: vishnu123
+              value: password
             - name: POSTGRES_DB
-              value: vishnu
+              value: postgres
           resources:
             requests:
               cpu: 100m

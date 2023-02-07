@@ -1,4 +1,8 @@
+server:
+  port: 8002
 spring:
+  application:
+    name: core-service
   jpa:
     properties:
       hibernate:
@@ -16,7 +20,13 @@ spring:
     driver-class-name: org.postgresql.Driver
     username: postgres
     url: jdbc:postgresql://localhost:5432/postgres
-
+eureka:
+  client:
+    enabled: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+    instance:
+      preferIpAddress: true
 cloud:
   aws:
     region:
@@ -25,7 +35,7 @@ cloud:
     stack:
       auto: false
     credentials:
-      access-key:
-      secret-key:
+      access-key: ***REMOVED***
+      secret-key: ***REMOVED***
     end-point:
       uri: "https://sqs.us-west-2.amazonaws.com/895656015678/qq"
