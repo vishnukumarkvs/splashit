@@ -15,16 +15,18 @@ spec:
     spec:
       containers:
       - name: unsplash-app
-        image: docker.io/vishnukumarkvs/unsplash:v2
+        image: docker.io/vishnukumarkvs/unsplash:v3
         ports:
           - containerPort: 8080
         env:
           - name: DB_USER
             value: postgres
           - name: DB_PWD
-            value: postgres
+            value: password
           - name: DB_URL
-            value: jdbc:postgresql://unsplash-postgres/vishnu
+            value: jdbc:postgresql://unsplash-postgres/postgres
+          - name: QUEUE_URI
+            value: https://sqs.us-west-2.amazonaws.com/895656015678/qq
           - name: AWS_ACCESS_KEY
             valueFrom:
               secretKeyRef:
