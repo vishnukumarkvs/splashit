@@ -1,21 +1,43 @@
+# Unsplash-Clone Microservices 
 
-# Unsplash-Clone
-
-A photo sharing platform powered by microservices and deployed in AWS with Docker, Terraform, and Kubernetes.
+Welcome to the repository for Unsplash-Clone, a photo sharing platform powered by microservices and deployed in AWS using cutting-edge technologies. This platform is designed to provide a seamless user experience while ensuring scalability and reliability.
 
 ![unsplash](https://user-images.githubusercontent.com/116954249/216814041-4415610f-aafa-48c3-97d1-07e962ab830a.png)
 
 
+## Tech Stack
+
+-   Node.js
+-   Express
+-   Spring Boot
+-   React
+-   Tailwind
+-   Docker
+-   Terraform
+-   Kubernetes
+-   AWS S3
+-   AWS SQS
+-   Netflix Eureka
+
 ## Microservices
 
--   **Auth Microservice**: A Node.js, Express powered microservice that authenticates user requests and proxies them to other microservices.
--   **Core and Upload Microservices**: Spring Boot powered microservices that communicate using AWS SQS with the help of Spring Cloud.
--   **UI Microservice**: A React and Tailwind powered user interface microservice.
+1.  Auth Microservice: Implemented using Node.js and Express, this microservice is responsible for authentication and proxying requests to the respective microservices.
+    
+2.  Core Microservice: Implemented using Spring Boot, this microservice handles all the CRUD operations for users such as fetching user data, user images, and adding images to the user.
+    
+3.  Upload Microservice: This microservice is responsible for uploading image files to AWS S3 buckets and is implemented using Spring Cloud.
+    
+4.  Comments Microservice: Implemented in Spring Boot, this microservice communicates with the Core microservice using Netflix Eureka and provides functionality for users to leave comments on photos.
+    
 
 ## Deployment
 
-Deployed in the cloud using Docker, Terraform, and Kubernetes, this project is built to scale and handle high traffic.
+Unsplash-Clone is deployed in AWS using Docker, Terraform, and Kubernetes to ensure high availability and reliability. The Core and Upload microservices are connected via AWS SQS queue, while the Comments microservice communicates with the Core microservice using Netflix Eureka.
 
-## Start Sharing Today
+## Contributing
 
-Join the community of photographers and enthusiasts and start sharing your photos with the world!
+Contributions are welcome to this project. If you would like to contribute, please fork the repository, make your changes, and submit a pull request.
+
+## License
+
+This project is licensed under the MIT License.
