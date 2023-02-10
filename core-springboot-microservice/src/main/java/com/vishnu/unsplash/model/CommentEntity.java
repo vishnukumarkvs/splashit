@@ -17,8 +17,8 @@ public class CommentEntity extends BaseEntity{
     @Column(columnDefinition = "text")
     String description;
 
-    @Column
-    Long likes;
+//    @Column
+//    Long likes;
 
     @ManyToOne
     @JoinColumn(name = "user_id",nullable = false)

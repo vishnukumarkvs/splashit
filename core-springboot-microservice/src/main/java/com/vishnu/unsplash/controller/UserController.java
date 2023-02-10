@@ -78,19 +78,19 @@ public class UserController {
         return new ResponseEntity<>(userEntity.getImages(),HttpStatus.OK);
     }
 
-    @PostMapping("/addComment")
-    public ResponseEntity<?> addComment(@RequestBody AddCommentPojo addCommentPojo, HttpServletRequest httpServletRequest) {
-        System.out.println("inside cont");
-        try{
-           AuthPojo user = objectMapper.readValue(httpServletRequest.getHeader("user"),AuthPojo.class);
-           commentService.addCommentByUser(addCommentPojo,user);
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-    }
+//    @PostMapping("/addComment")
+//    public ResponseEntity<?> addComment(@RequestBody AddCommentPojo addCommentPojo, HttpServletRequest httpServletRequest) {
+//        System.out.println("inside cont");
+//        try{
+//           AuthPojo user = objectMapper.readValue(httpServletRequest.getHeader("user"),AuthPojo.class);
+//           commentService.addCommentByUser(addCommentPojo,user);
+//            return new ResponseEntity<>(HttpStatus.CREATED);
+//        }
+//        catch (Exception e) {
+//            e.printStackTrace();
+//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//        }
+//    }
 
     // 1- only one topic for image - *
     @PostMapping("/addTopic")

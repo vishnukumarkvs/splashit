@@ -26,6 +26,6 @@ public class UserEntity extends BaseEntity{
     @JsonIgnore
     List<ImageEntity> images;
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    List<CommentEntity> comments;
+//    @Column
+//    List<Long> commentId;
 }
