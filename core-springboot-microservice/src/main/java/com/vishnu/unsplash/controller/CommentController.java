@@ -16,6 +16,7 @@ import java.util.List;
 @RestController
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RequiredArgsConstructor
+@RequestMapping("/core")
 public class CommentController {
 
     LoadBalancerClient loadBalancerClient;
