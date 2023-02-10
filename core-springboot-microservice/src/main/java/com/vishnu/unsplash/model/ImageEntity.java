@@ -26,9 +26,11 @@ public class ImageEntity extends BaseEntity{
     @Column
     Long likes;
 
-    @OneToMany(mappedBy = "image",fetch = FetchType.LAZY,orphanRemoval = true,cascade = CascadeType.ALL)
-    @JsonIgnore
-    List<CommentEntity> comments;
+//    @OneToMany(mappedBy = "image",fetch = FetchType.LAZY,orphanRemoval = true,cascade = CascadeType.ALL)
+//    @JsonIgnore
+//    List<CommentEntity> comments;
+    @Column
+    List<Long> commentIds;
 
     @ManyToOne(fetch = FetchType.EAGER,optional = false)
     @JoinColumn(name = "user_id",nullable = false)

@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class TempController {
     GetComments getComments;
 
-    @GetMapping
-    public ResponseEntity<?> getInfo(){
-        String s = getComments.getCommentsOfImage();
-        return new ResponseEntity<>(s, HttpStatus.OK);
-    }
+//    @GetMapping
+//    public ResponseEntity<?> getInfo(){
+//        String s = getComments.getCommentsOfImage();
+//        return new ResponseEntity<>(s, HttpStatus.OK);
+//    }
 }

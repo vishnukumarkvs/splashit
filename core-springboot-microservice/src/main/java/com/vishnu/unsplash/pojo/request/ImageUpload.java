@@ -1,5 +1,6 @@
 package com.vishnu.unsplash.pojo.request;
 
+import com.vishnu.unsplash.model.Meta;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -16,4 +17,6 @@ public class ImageUpload {
     String url;
     String description;
     Long userId;
+
+    List<Meta> meta;
 }

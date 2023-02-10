@@ -8,7 +8,10 @@ import com.vishnu.unsplash.repository.ImageRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Collections;
 import java.util.List;
@@ -19,6 +22,8 @@ import java.util.List;
 public class ImageService {
     ImageRepository imageRepository;
     UserService userService;
+
+    LoadBalancerClient loadBalancerClient;
 
     public ImageEntity getImageById(long id){
         return imageRepository.findById(id).orElse(null);
@@ -33,6 +38,15 @@ public class ImageService {
         image.setUser(userEntity);
         imageRepository.save(image);
     }
+
+//    // external join
+//    public List<Long> getAllCommentIdsUnderImage(Long imageId){
+//        ServiceInstance serviceInstance = loadBalancerClient.choose("comment-service");
+//        String uri = serviceInstance.getUri()+"";
+//        RestTemplate restTemplate = new RestTemplate();
+//
+//
+//    }
     
     public void addLike(long id) {
         ImageEntity imageEntity = imageRepository.findById(id).orElse(null);
@@ -51,11 +65,11 @@ public class ImageService {
         }
     }
 
-    public List<CommentEntity> getAllComments(long id){
-        ImageEntity imageEntity = this.getImageById(id);
-        if(imageEntity != null){
-            return imageEntity.getComments();
-        }
-        return null;
-    }
+//    public List<CommentEntity> getAllComments(long id){
+//        ImageEntity imageEntity = this.getImageById(id);
+//        if(imageEntity != null){
+//            return imageEntity.getComments();
+//        }
+//        return null;
+//    }
 }

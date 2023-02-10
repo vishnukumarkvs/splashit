@@ -1,6 +1,9 @@
 server:
   port: 8002
 spring:
+  cloud:
+    discovery:
+      enabled: false
   application:
     name: core-service
   jpa:
@@ -38,4 +41,4 @@ cloud:
       access-key: AKIA5BCKCG47OQ2HBSUA
       secret-key: 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
     end-point:
-      uri: "https://sqs.us-west-2.amazonaws.com/895656015678/qq"
+      uri: "https://sqs.us-west-2.amazonaws.com/895656015678/unsplash-upload-queue"
