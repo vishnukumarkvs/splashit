@@ -1,14 +1,16 @@
 package com.unsplash.commentservice.pojo.request;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class AddCommentPojo {
-    String description;
-    Long imageId;
+public class AuthPojo {
+    long userId;
+    @JsonIgnore
+    long iat;
 }
