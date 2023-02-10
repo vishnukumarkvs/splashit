@@ -6,11 +6,14 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.unsplash.upload.pojo.request.ImageUploadPojo;
 import com.unsplash.upload.pojo.request.SqsImageUploadPojo;
+import com.unsplash.upload.pojo.response.AuthPojo;
 import com.unsplash.upload.pojo.response.ErrorPojo;
 import com.unsplash.upload.service.SqsMessageProducer;
 import com.unsplash.upload.utils.ImageValidator;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;
@@ -24,15 +27,16 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/upload")
+@RequestMapping("/image")
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE,makeFinal = true)
 public class ImageUploadController {
 
     SqsMessageProducer sqsMessageProducer;
+    ObjectMapper objectMapper;
 
     @PostMapping
-    public ResponseEntity<?> handleFileUpload(@ModelAttribute ImageUploadPojo imageUploadPojo) {
+    public ResponseEntity<?> handleFileUpload(@ModelAttribute ImageUploadPojo imageUploadPojo, HttpServletRequest request) {
         if(!ImageValidator.areImages(imageUploadPojo.getFiles())){
             return new ResponseEntity<>(new ErrorPojo("Not Valid File. Upload only Images"), HttpStatus.BAD_REQUEST);
         }
@@ -49,11 +53,13 @@ public class ImageUploadController {
                 imageUploadPojo.setUrl(objectUrl);
                 Map<String,Object> headers = new HashMap<>();
                 headers.put("Content-Type","application/json");
+                AuthPojo user = objectMapper.readValue(request.getHeader("user"), AuthPojo.class);
                 SqsImageUploadPojo sqsImageUploadPojo=SqsImageUploadPojo.builder()
                         .url(objectUrl)
                         .title(imageUploadPojo.getTitle())
                         .description(imageUploadPojo.getDescription())
                         .meta(imageUploadPojo.getMeta())
+                        .userId(user.getUserId())
                         .build();
                 sqsMessageProducer.send(sqsImageUploadPojo,headers);
             } catch (AmazonServiceException e) {
@@ -61,8 +67,10 @@ public class ImageUploadController {
             } catch (IOException e) {
                 return new ResponseEntity<>(new ErrorPojo("File upload failed. Please try again."), HttpStatus.BAD_REQUEST);
             }
+            catch (Exception e){
+
+            }
         }
         return new ResponseEntity<>(HttpStatus.OK);
-
     }
 }
