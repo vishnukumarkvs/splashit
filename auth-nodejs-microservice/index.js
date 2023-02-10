@@ -5,7 +5,8 @@ const { default: axios } = require("axios");
 
 const app = express();
 
-const coreServiceUrl = "http://localhost:9001";
+const coreServiceUrl = "http://localhost:8002";
+const uploadServiceUrl = "http://localhost:8003";
 const jwtSecret = "vishnu";
 
 app.use(async (req, res, next) => {
@@ -32,7 +33,19 @@ app.use(async (req, res, next) => {
 app.use(
   "/core",
   createProxyMiddleware({
-    target: "http://localhost:8080",
+    target: coreServiceUrl,
+    changeOrigin: true,
+    onProxyReq: (proxyReq, req) => {
+      console.log("proxying");
+      console.log(req.body);
+    },
+  })
+);
+
+app.use(
+  "/upload",
+  createProxyMiddleware({
+    target: uploadServiceUrl,
     changeOrigin: true,
     onProxyReq: (proxyReq, req) => {
       console.log("proxying");
@@ -45,7 +58,7 @@ app.use(express.json());
 
 app.post("/register", async (req, res) => {
   try {
-    const { data, status } = await axios.post(
+    const { data } = await axios.post(
       coreServiceUrl + "/auth/register",
       req.body.user
     );
@@ -63,16 +76,24 @@ app.post("/register", async (req, res) => {
 });
 
 app.post("/login", async (req, res) => {
-  const { data, status } = await axios.post(
-    coreServiceUrl + "/login",
-    req.body.user
-  );
-  if (data) {
+  try {
+    let config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    console.log(req.body);
+    const { data } = await axios.post(
+      coreServiceUrl + "/auth/login",
+      req.body,
+      config
+    );
     // user is authenticated, create JWT token
     const token = jwt.sign({ userId: data.id }, jwtSecret);
     res.json({ token, user: data });
-  } else {
+  } catch (err) {
     res.status(401).json({ error: "Invalid email or password" });
+    console.log(err);
   }
 });
 
