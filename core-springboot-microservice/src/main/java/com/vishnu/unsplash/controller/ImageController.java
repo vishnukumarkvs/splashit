@@ -22,12 +22,6 @@ public class ImageController {
     UserService userService;
     private final ImageRepository imageRepository;
 
-    // 4 get comments from image
-//    @GetMapping("/comments")
-//    public ResponseEntity<?> getComments(@RequestBody Long id){
-//        return new ResponseEntity<>(imageService.getAllComments(id), HttpStatus.OK);
-//    }
-
     @PostMapping
     public ResponseEntity<?> addImage(@RequestBody ImageUpload imageUpload){
         UserEntity user1 = userService.getUserById(imageUpload.getUserId());
