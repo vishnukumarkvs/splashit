@@ -7,6 +7,7 @@ const app = express();
 
 const coreServiceUrl = "http://localhost:8002";
 const uploadServiceUrl = "http://localhost:8003";
+const commentSericeUrl = "http://localhost:8001";
 const jwtSecret = "vishnu";
 
 app.use(async (req, res, next) => {
@@ -46,6 +47,18 @@ app.use(
   "/upload",
   createProxyMiddleware({
     target: uploadServiceUrl,
+    changeOrigin: true,
+    onProxyReq: (proxyReq, req) => {
+      console.log("proxying");
+      console.log(req.body);
+    },
+  })
+);
+
+app.use(
+  "/comments",
+  createProxyMiddleware({
+    target: commentSericeUrl,
     changeOrigin: true,
     onProxyReq: (proxyReq, req) => {
       console.log("proxying");
