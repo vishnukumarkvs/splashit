@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: unsplash-eureka
+  labels:
+    app: unsplash-eureka
+spec:
+  selector:
+    matchLabels:
+      app: unsplash-eureka
+  template:
+    metadata:
+      labels:
+        app: unsplash-eureka
+    spec:
+      containers:
+        - name: unsplash-eureka
+          image: docker.io/vishnukumarkvs/unsplash-eureka:v1
+          ports:
+            - containerPort: 8761

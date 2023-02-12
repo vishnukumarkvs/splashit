@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: unsplash-auth
+  labels:
+    app: unsplash-auth
+spec:
+  selector:
+    matchLabels:
+      app: unsplash-auth
+  template:
+    metadata:
+      labels:
+        app: unsplash-auth
+    spec:
+      containers:
+        - name: unsplash-auth
+          image: docker.io/vishnukumarkvs/unsplash-auth:v1
+          ports:
+            - containerPort: 5000
+          env:
+            - name: CORE-SERVICE_URL
+              value: http://unsplash-core-service:8001/
+            - name: UPLOAD_SERVICE_URL
+              value: http://unsplash-upload-service:8002/
+            - name: COMMENT_SERVICE_URL
+              value: http://unsplash-comment-service:8003/
+            - name: JWT_SECRET
+              value: vishnu

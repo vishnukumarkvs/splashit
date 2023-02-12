@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: unsplash-upload
+  labels:
+    app: unsplash-upload
+spec:
+  selector:
+    matchLabels:
+      app: unsplash-upload
+  template:
+    metadata:
+      labels:
+        app: unsplash-upload
+    spec:
+      containers:
+        - name: unsplash-upload
+          image: docker.io/vishnukumarkvs/unsplash-upload:v1
+          ports:
+            - containerPort: 8002
+          env:
+            - name: AWS_REGION
+              value: us-west-2
+            - name: SQS_QUEUE_NAME
+              value: unsplash-upload-queue
+            - name: S3_BUCKET_NAME
+              value: unspash-images-vishnu
+            - name: AWS_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: mysecret
+                  key: accesskey
+            - name: AWS_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: mysecret
+                  key: secretkey

@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: unsplash-comment
+  labels:
+    app: unsplash-comment
+spec:
+  selector:
+    matchLabels:
+      app: unsplash-comment
+  template:
+    metadata:
+      labels:
+        app: unsplash-comment
+    spec:
+      containers:
+        - name: unsplash-comment
+          image: docker.io/vishnukumarkvs/unsplash-comment:v1
+          ports:
+            - containerPort: 8003
+          env:
+            - name: DB_USER
+              value: postgres
+            - name: DB_PWD
+              value: password
+            - name: DB_URL
+              value: jdbc:postgresql://unsplash-postgres/postgres
+            - name: EUREKA_SERVER_URL
+              value: http://unsplash-eureka-service:8761/eureka
