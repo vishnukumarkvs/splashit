@@ -1,4 +1,11 @@
+server:
+  port: 8001
 spring:
+  cloud:
+    discovery:
+      enabled: true
+  application:
+    name: core-service
   jpa:
     properties:
       hibernate:
@@ -16,7 +23,13 @@ spring:
     driver-class-name: org.postgresql.Driver
     username: ${DB_USER}
     url: ${DB_URL}
-
+eureka:
+  client:
+    enabled: true
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVER_URL}
+    instance:
+      preferIpAddress: true
 cloud:
   aws:
     region:
