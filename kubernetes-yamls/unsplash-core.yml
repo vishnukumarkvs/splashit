@@ -26,7 +26,7 @@ spec:
             - name: DB_URL
               value: jdbc:postgresql://unsplash-postgres/postgres
             - name: QUEUE_URI
-              value: https://sqs.us-west-2.amazonaws.com/895656015678/qq
+              value: https://sqs.us-west-2.amazonaws.com/895656015678/unsplash-upload-queue
             - name: EUREKA_SERVER_URL
               value: http://unsplash-eureka-service:8761/eureka
             - name: AWS_ACCESS_KEY

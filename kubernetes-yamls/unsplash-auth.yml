@@ -19,11 +19,11 @@ spec:
           ports:
             - containerPort: 5000
           env:
-            - name: CORE-SERVICE_URL
-              value: http://unsplash-core-service:8001/
+            - name: CORE_SERVICE_URL
+              value: http://unsplash-core-service:8001
             - name: UPLOAD_SERVICE_URL
-              value: http://unsplash-upload-service:8002/
+              value: http://unsplash-upload-service:8002
             - name: COMMENT_SERVICE_URL
-              value: http://unsplash-comment-service:8003/
+              value: http://unsplash-comment-service:8003
             - name: JWT_SECRET
               value: vishnu
