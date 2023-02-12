@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: unsplash-core
+  labels:
+    app: unsplash-core
+spec:
+  selector:
+    matchLabels:
+      app: unsplash-core
+  template:
+    metadata:
+      labels:
+        app: unsplash-core
+    spec:
+      containers:
+        - name: unsplash-core
+          image: docker.io/vishnukumarkvs/unsplash-core:v1
+          ports:
+            - containerPort: 8001
+          env:
+            - name: DB_USER
+              value: postgres
+            - name: DB_PWD
+              value: password
+            - name: DB_URL
+              value: jdbc:postgresql://unsplash-postgres/postgres
+            - name: QUEUE_URI
+              value: https://sqs.us-west-2.amazonaws.com/895656015678/qq
+            - name: EUREKA_SERVER_URL
+              value: http://unsplash-eureka-service:8761/eureka
+            - name: AWS_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: mysecret
+                  key: accesskey
+            - name: AWS_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: mysecret
+                  key: secretkey
