@@ -1,0 +1,29 @@
+server:
+  port: 8003
+eureka:
+  client:
+    enabled: true
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVER_URL}
+    instance:
+      preferIpAddress: true
+spring:
+  application:
+    name: comment-service
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgresPlusDialect
+        jdbc:
+          lob:
+            non_contextual_creation: 'true'
+        format_sql: 'true'
+    hibernate:
+      ddl-auto: update
+  main:
+    allow-bean-definition-overriding: 'true'
+  datasource:
+    password: ${DB_PWD}
+    driver-class-name: org.postgresql.Driver
+    username: ${DB_USER}
+    url: ${DB_URL}

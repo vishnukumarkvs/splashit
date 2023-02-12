@@ -2,13 +2,19 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const { createProxyMiddleware } = require("http-proxy-middleware");
 const { default: axios } = require("axios");
+require("dotenv").config();
 
 const app = express();
 
-const coreServiceUrl = "http://localhost:8002";
-const uploadServiceUrl = "http://localhost:8003";
-const commentSericeUrl = "http://localhost:8001";
-const jwtSecret = "vishnu";
+// const coreServiceUrl = "http://localhost:8002";
+// const uploadServiceUrl = "http://localhost:8003";
+// const commentSericeUrl = "http://localhost:8001";
+// const jwtSecret = "vishnu";
+
+const coreServiceUrl = process.env.CORE_SERVICE_URL;
+const uploadServiceUrl = process.env.UPLOAD_SERVICE_URL;
+const commentSericeUrl = process.env.COMMENT_SERVICE_URL;
+const jwtSecret = process.env.JWT_SECRET;
 
 app.use(async (req, res, next) => {
   if (req.path === "/login" || req.path === "/register") {
@@ -108,6 +114,10 @@ app.post("/login", async (req, res) => {
     res.status(401).json({ error: "Invalid email or password" });
     console.log(err);
   }
+});
+
+app.get("/health", (req, res) => {
+  res.status(200).send({ status: "UP" });
 });
 
 app.listen(5000, () => {
