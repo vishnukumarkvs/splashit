@@ -2,8 +2,8 @@
 
 Welcome to the repository for Unsplash-Clone, a photo sharing platform powered by microservices and deployed in AWS using cutting-edge technologies. This platform is designed to provide a seamless user experience while ensuring scalability and reliability.
 
-![unsplash](https://user-images.githubusercontent.com/116954249/216814041-4415610f-aafa-48c3-97d1-07e962ab830a.png)
 
+![Blank diagram](https://user-images.githubusercontent.com/116954249/218667872-7d96363a-f585-467b-846f-304cf73a6569.png)
 
 ## Tech Stack
 
