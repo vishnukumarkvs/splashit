@@ -20,10 +20,6 @@ provider "kubectl" {
   token                  = data.aws_eks_cluster_auth.this.token
 }
 
-locals {
-  name="eks"
-}
-
 module "eks_blueprints" {
   source = "github.com/aws-ia/terraform-aws-eks-blueprints?ref=v4.21.0"
 
@@ -34,7 +30,7 @@ module "eks_blueprints" {
   private_subnet_ids = module.vpc.private_subnets
 
   # EKS CONTROL PLANE VARIABLES
-  # cluster_version = local.cluster_version
+  cluster_version = local.cluster_version
 
   # List of Additional roles admin in the cluster
   # Comment this section if you ARE NOT at an AWS Event, as the TeamRole won't exist on your site, or replace with any valid role you want
@@ -50,7 +46,7 @@ module "eks_blueprints" {
   managed_node_groups = {
     mg_5 = {
       node_group_name = local.node_group_name
-      instance_types  = ["t3.small"]
+      instance_types  = ["m5.xlarge"]
       subnet_ids      = module.vpc.private_subnets
     }
   }
