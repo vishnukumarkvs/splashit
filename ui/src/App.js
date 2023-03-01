@@ -1,8 +1,10 @@
-import logo from "./logo.svg";
 import "./App.css";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getConfig } from "./store/actions/configActions";
+import {Routes, Route} from 'react-router-dom';
+import Home from "./pages/Home";
+import NotFound from "./pages/NotFound";
 
 function App() {
   const timestamp = useSelector((state) => state.config.timestamp);
@@ -23,22 +25,10 @@ function App() {
     console.log(config);
   }, [config]);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      <Route path={"/"} element={<Home/>}/>
+      <Route path="*" element={<NotFound/>}/>
+    </Routes>
   );
 }
 
