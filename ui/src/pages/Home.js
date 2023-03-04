@@ -1,4 +1,5 @@
 import React from "react";
+import BottomFeed from "../components/BottomFeed";
 import CollectionsWear from "../components/CollectionsWear";
 import Navbar from "../components/Navbar";
 
@@ -7,6 +8,7 @@ function Home(){
         <div className="bg-[#feee80] h-full">
             <Navbar/>
             <CollectionsWear/>
+            <BottomFeed/>
         </div>
     );
 }
