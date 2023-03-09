@@ -5,6 +5,7 @@ import { getConfig } from "./store/actions/configActions";
 import {Routes, Route} from 'react-router-dom';
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
+import Upload from "./pages/Upload";
 
 function App() {
   const timestamp = useSelector((state) => state.config.timestamp);
@@ -27,6 +28,7 @@ function App() {
   return (
     <Routes>
       <Route path={"/"} element={<Home/>}/>
+      <Route path={"/upload"} element={<Upload/>}/>
       <Route path="*" element={<NotFound/>}/>
     </Routes>
   );
